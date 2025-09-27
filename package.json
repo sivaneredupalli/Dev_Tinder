@@ -1,0 +1,21 @@
+{
+  "name": "devTinder_Backend",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "Backend Server",
+    "ExpressJS Server",
+    "NodeJS"
+  ],
+  "license": "ISC",
+  "author": "Siva Neredupalli",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/App.js",
+    "dev":"nodemon src/App.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
