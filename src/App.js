@@ -1,14 +1,19 @@
 const express = require("express")
 const app = express();
-    // app.use()
-app.use("/Siva",(req,res)=>{
-    res.send("Hello Siva, Response from server")
+const {adminAuth,userAuth}= require("./middlewares/auth.js")
+app.use('/admin',adminAuth)
+app.use('/user',userAuth)
+app.get('/user/getAllData',(req,res,)=>{
+    res.send("User all data got successfully")
 })
-app.use("/Surya",(req,res)=>{
-res.send("Hello Surya, Response from Server")
+  app.get('/user/deleteUser',(req,res,)=>{
+    res.send("User data deleted successfully")
 })
-app.use("/Ramu",(req,res)=>{
-    res.send("Hello Ramu, Responding from Server")
+app.get('/admin/getAllData',(req,res)=>{
+  res.send("adminuser data got successfully");
+})
+app.get('/admin/deleteUser',(req,res)=>{
+  res.send("AdminUser details deleted successfully")
 })
 app.listen(3333,()=>{
     console.log("Server successfully listening the port 3333 requests")
