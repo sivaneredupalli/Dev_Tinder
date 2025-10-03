@@ -2,13 +2,11 @@ const express = require("express")
 const connectDB=require("./config/database.js")
 const User=require("./models/user")
 const app = express();
+//Middleware to get the API requests for all calls
+app.use(express.json())
 app.post("/signup",async (req,res)=>{
-const user=new User({
-  firstName:"Syam",
-  lastName:"Neredupalli",
-  emailID:"neredupalliSyam3@gmail.com",
-  password:"Syam@123"
-})
+  //Creating new instance for User model
+const user=new User(req.body)
 try{await user.save();
 res.send("Data inserted successfully...!")}
 catch(err){
