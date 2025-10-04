@@ -5,14 +5,14 @@ const userSchema = new mongoose.Schema(
     firstName: {
       type: String,
       required: true,
-      minlength: 4,   // use "minlength" (all lowercase) not "minLength"
-      maxlength: 50
+      minLength: 4,   // use "minlength" (all lowercase) not "minLength"
+      maxLength: 50
     },
     lastName: {
       type: String,
       required: true,
       minlength: 4,
-      maxlength: 50
+      maxLength: 50
     },
     emailID: {
       type: String,
@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 8,
-      maxlength: 16
+      minLength: 8,
+      maxLength: 16
     },
     age: {
       type: Number,

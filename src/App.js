@@ -8,7 +8,12 @@ app.use(express.json())
 app.post("/signup",async (req,res)=>{
   //Creating new instance for User model
 const user=new User(req.body)
-try{await user.save();
+try{
+  if(user?.skills.length>10)
+    {
+      throw new Error("Not allowed more than 10 skills")
+    }
+  await user.save();
 res.send("Data inserted successfully...!")}
 catch(err){
   res.status(400).send("Error saving the data : "+err.message)
@@ -62,12 +67,22 @@ else{
     res.status(404).send("Something went wrong")
   }
 })
-//
-app.patch("/user",async(req,res)=>{
-  const userId=req.body.userId;
+//update data of the user
+app.patch("/user/:userId",async(req,res)=>{
+  const userId=req.params?.userId;
   const data=req.body;
   try{
-    const userUpdated=await User.findByIdAndUpdate(userId,data)
+    //API sanitation
+    const ALLOWED_UPDATES=["about","photoUrl","skills","gender","age"]
+    const isAllowedUpdated=Object.keys(data).every(k=>(ALLOWED_UPDATES.includes(k)))
+    if(!isAllowedUpdated){
+      throw new Error("Update not allowed")
+    }
+    if(data?.skills.length>10)
+    {
+      throw new Error("Not allowed more than 10 skills")
+    }
+    const userUpdated=await User.findByIdAndUpdate(userId,data,{runValidators:true})
     if(!userUpdated){
   res.status(404).send("User details are not existed")
 }
@@ -76,7 +91,7 @@ else{
 }
   }
   catch(err){
-    app.status(400).send("Something went wrong");
+    res.status(400).send("Something went wrong");
   }
 })
 
